@@ -1,9 +1,11 @@
-name: Archive regression
+name: Archive regression and stable release
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   regression:
     runs-on: ubuntu-latest
@@ -13,3 +15,22 @@ jobs:
         with:
           node-version: '22'
       - run: node --test tests/archive-regression.test.mjs
+  release:
+    needs: regression
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: archive-stable-v8-1-0
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish stable release once
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if ! grep -q 'aiyer-editor-shell-v8.1.0' service-worker.js; then exit 0; fi
+          if gh release view v8.1.0 >/dev/null 2>&1; then exit 0; fi
+          gh release create v8.1.0 --target "$GITHUB_SHA" --title "v8.1.0 · 星界档案系统正式稳定版" --notes-file RELEASE_v8.1.0.md --latest
