@@ -1,4 +1,4 @@
-const CACHE='aiyer-editor-shell-v7.5.4';
+const CACHE='aiyer-editor-shell-v7.5.5';
 const CORE=['./','./index.html','./ocr754.js','./manifest.webmanifest',...Array.from({length:40},(_,i)=>'./assets/skill-icons/weapon-'+(Math.floor(i/8)+1)+'-'+String(i%8+1).padStart(2,'0')+'.webp'),'./assets/icons/icon-192.png','./assets/icons/icon-512.png','./assets/icons/icon-maskable-512.png','./assets/icons/apple-touch-icon.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('aiyer-editor-shell-')&&k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()])));
