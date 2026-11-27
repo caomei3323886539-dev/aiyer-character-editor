@@ -9,4 +9,4 @@ test('version and protection integration',()=>{assert.match(html,/navigation800\
 
 test('astral navigation retains five routes and caches artwork',()=>{for(const key of ['archive','roles','edit','import','settings'])assert.match(nav,new RegExp("\\['"+key+"'"));assert.match(nav,/assets\/navigation/);assert.match(sw,/assets\/navigation/);assert.match(html,/v811-astral-navigation/)});
 
-test('top branding is optional and does not block offline install',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-logo\.webp/);assert.match(html,/v812-brand-style/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/)});
+test('top branding is optional and does not block offline install',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-logo\(2\)\.webp/);assert.match(html,/v812-brand-style/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/)});
