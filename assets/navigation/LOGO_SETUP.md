@@ -1,0 +1,1 @@
+Official logo: upload astral-archive-logo.webp to this directory. Transparent 3:1 WebP, 1200 x 400 recommended. The editor uses a text fallback until this asset exists. A local override is available in Settings > Display and animation.

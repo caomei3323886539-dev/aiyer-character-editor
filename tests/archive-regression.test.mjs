@@ -5,6 +5,8 @@ const code=html.slice(html.indexOf('function validateArchive809('),html.indexOf(
 test('restore preserves IDs and active selection',()=>{const d=prepare({list:[{id:'a',worldLore:{relations:[{target:'b'}]}},{id:'b'}],active:'b'});assert.equal(d.active,'b');assert.equal(d.list[0].worldLore.relations[0].target,d.list[1].id)});
 test('reject malformed archives and duplicate IDs',()=>{for(const x of [null,[],[null],[{id:'a'},{id:'a'}],[{combat:[]}],[{gallery:[null]}]])assert.throws(()=>prepare(x))});
 test('legacy array and isolated companion data',()=>{const d=prepare([{id:'old',name:'general',companionProfile472:{name:'companion'}}]);assert.equal(d.active,'old');assert.equal(d.list[0].name,'general');assert.equal(d.list[0].companionProfile472.name,'companion')});
-test('version and protection integration',()=>{assert.match(html,/navigation800\.js\?v=8\.1\.1/);assert.match(sw,/aiyer-editor-shell-v8\.1\.1/);assert.match(nav,/safetyObserver\.observe/);assert.match(html,/导入类型与当前角色不符/);assert.match(html,/list\.includes\(owner\)/)});
+test('version and protection integration',()=>{assert.match(html,/navigation800\.js\?v=8\.1\.2/);assert.match(sw,/aiyer-editor-shell-v8\.1\.2/);assert.match(nav,/safetyObserver\.observe/);assert.match(html,/导入类型与当前角色不符/);assert.match(html,/list\.includes\(owner\)/)});
 
 test('astral navigation retains five routes and caches artwork',()=>{for(const key of ['archive','roles','edit','import','settings'])assert.match(nav,new RegExp("\\['"+key+"'"));assert.match(nav,/assets\/navigation/);assert.match(sw,/assets\/navigation/);assert.match(html,/v811-astral-navigation/)});
+
+test('top branding is optional and does not block offline install',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-logo\.webp/);assert.match(html,/v812-brand-style/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/)});
