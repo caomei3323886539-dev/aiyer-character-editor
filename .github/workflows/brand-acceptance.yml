@@ -1,0 +1,27 @@
+name: Brand acceptance
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [v8.1.9-brand-unification]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/archive-regression.test.mjs
+      - name: Package isolated preview
+        run: |
+          mkdir -p preview
+          cp index.html navigation800.js ocr754.js manifest.webmanifest service-worker.js preview/
+          cp -R assets preview/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: astral-archive-brand-preview
+          path: preview/
