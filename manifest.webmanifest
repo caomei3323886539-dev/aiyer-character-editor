@@ -1,7 +1,7 @@
 {
   "name": "星界档案",
   "short_name": "星界档案",
-  "description": "艾耶尔大陆 · 星界档案 v8.1.8",
+  "description": "艾耶尔大陆 · 星界档案 v8.1.9.1",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
