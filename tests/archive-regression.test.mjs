@@ -9,7 +9,7 @@ test('version and protection integration',()=>{assert.match(html,/navigation800\
 
 test('astral navigation retains five routes and caches artwork',()=>{for(const key of ['archive','roles','edit','import','settings'])assert.match(nav,new RegExp("\\['"+key+"'"));assert.match(nav,/assets\/navigation/);assert.match(sw,/assets\/navigation/);assert.match(html,/v811-astral-navigation/)});
 
-test('top branding retains local override, fallback and offline resources',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-brand\.svg/);assert.match(nav,/aiyer_ui_logo_v812/);assert.match(nav,/logo\.onerror/);assert.match(html,/v812-brand-style/);assert.match(sw,/astral-archive-brand\.svg/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/);assert.ok(readFileSync(new URL('../assets/navigation/astral-archive-brand.svg',import.meta.url),'utf8').startsWith('<svg'))});
+test('top branding retains local override, fallback and offline resources',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-logo\(2\)\.webp/);assert.match(nav,/aiyer_ui_logo_v812/);assert.match(nav,/logo\.onerror/);assert.match(html,/v812-brand-style/);assert.match(sw,/astral-archive-logo\(2\)\.webp/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/);assert.ok(readFileSync(new URL('../assets/navigation/astral-archive-logo(2).webp',import.meta.url)).subarray(8,12).toString()==='WEBP')});
 
 test('edit art preserves all ten category routes and offline assets',()=>{for(const key of ['base','story','look','battle','skills','gear','contract','inventory','world','advanced']){assert.ok(nav.includes("['"+key+"'"));assert.ok(readFileSync(new URL('../assets/editor/'+key+'.svg',import.meta.url),'utf8').startsWith('<svg'));assert.ok(sw.includes("'"+key+"'"))}assert.match(nav,/v813-edit-card/);assert.match(nav,/choose\(k,first\[1\],first\[2\]\)/);assert.match(html,/v813-edit-art/);assert.match(sw,/assets\/editor\/card-frame.svg/)});
 
@@ -23,6 +23,6 @@ test('export includes legacy racial talents and four independent slots',()=>{con
 
 test('official brand and PWA identity remain stable',()=>{const m=JSON.parse(readFileSync(new URL('../manifest.webmanifest',import.meta.url),'utf8'));assert.equal(m.name,'星界档案');assert.equal(m.short_name,'星界档案');assert.equal(m.id,'./');assert.equal(m.start_url,'./index.html');assert.match(html,/<title>星界档案 v8\.1\.9\.1/);assert.match(nav,/info\('星界档案'/)});
 
-test('v819 brand assets and startup offline integration',()=>{assert.match(html,/id="v819Splash"/);assert.match(html,/prefers-reduced-motion/);assert.match(nav,/astral-archive-brand\.svg/);assert.match(sw,/astral-archive-brand\.svg/);assert.match(sw,/navigation800\.js\?v=8\.1\.9\.1/)});
+test('v819 brand assets and startup offline integration',()=>{assert.match(html,/id="v819Splash"/);assert.match(html,/prefers-reduced-motion/);assert.match(nav,/astral-archive-logo\(2\)\.webp/);assert.match(sw,/astral-archive-logo\(2\)\.webp/);assert.match(sw,/navigation800\.js\?v=8\.1\.9\.1/)});
 
 test('brand landscape and missing image fallback',()=>{assert.match(html,/max-height:420px/);assert.match(html,/onerror="this.hidden=true"/);assert.match(html,/<strong>星界档案<\/strong>/);assert.match(sw,/res.status>=500/)});
