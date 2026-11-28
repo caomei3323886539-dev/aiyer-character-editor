@@ -9,7 +9,7 @@ test('version and protection integration',()=>{assert.match(html,/navigation800\
 
 test('astral navigation retains five routes and caches artwork',()=>{for(const key of ['archive','roles','edit','import','settings'])assert.match(nav,new RegExp("\\['"+key+"'"));assert.match(nav,/assets\/navigation/);assert.match(sw,/assets\/navigation/);assert.match(html,/v811-astral-navigation/)});
 
-test('top branding is optional and does not block offline install',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-logo\(2\)\.webp/);assert.match(html,/v812-brand-style/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/)});
+test('top branding retains local override, fallback and offline resources',()=>{assert.match(nav,/v812Logo/);assert.match(nav,/astral-archive-brand\.svg/);assert.match(nav,/aiyer_ui_logo_v812/);assert.match(nav,/logo\.onerror/);assert.match(html,/v812-brand-style/);assert.match(sw,/astral-archive-brand\.svg/);assert.match(sw,/Promise\.allSettled\(\[cache\.add/);assert.ok(readFileSync(new URL('../assets/navigation/astral-archive-brand.svg',import.meta.url),'utf8').startsWith('<svg'))});
 
 test('edit art preserves all ten category routes and offline assets',()=>{for(const key of ['base','story','look','battle','skills','gear','contract','inventory','world','advanced']){assert.ok(nav.includes("['"+key+"'"));assert.ok(readFileSync(new URL('../assets/editor/'+key+'.svg',import.meta.url),'utf8').startsWith('<svg'));assert.ok(sw.includes("'"+key+"'"))}assert.match(nav,/v813-edit-card/);assert.match(nav,/choose\(k,first\[1\],first\[2\]\)/);assert.match(html,/v813-edit-art/);assert.match(sw,/assets\/editor\/card-frame.svg/)});
 
