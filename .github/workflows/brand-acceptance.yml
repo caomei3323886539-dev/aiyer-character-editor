@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [v8.1.9-brand-unification]
+    branches: [develop]
   workflow_dispatch:
 permissions:
   contents: read
